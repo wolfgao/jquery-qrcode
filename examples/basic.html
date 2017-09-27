@@ -1,7 +1,8 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
 <head>
-<title>basic example</title>
+<title>basic example - daydayxue</title>
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
@@ -9,20 +10,51 @@
 <!--<script type="text/javascript" src="../jquery.qrcode.min.js"></script>
 --><script type="text/javascript" src="../src/jquery.qrcode.js"></script>
 <script type="text/javascript" src="../src/qrcode.js"></script>
-
+Please input the text you want to change to QRcode:
+<input type="text" id="qrcodeText" name="qrcodeText" value="">
+<input type="button" id="submit" text="click me" value="Click me" onclick="createQRcode();">
 <p>Render in table</p>
 <div id="qrcodeTable"></div>
 <p>Render in canvas</p>
 <div id="qrcodeCanvas"></div>
 <script>
 	//jQuery('#qrcode').qrcode("this plugin is great");
-	jQuery('#qrcodeTable').qrcode({
-		render	: "table",
-		text	: "http://jetienne.com"
-	});	
-	jQuery('#qrcodeCanvas').qrcode({
-		text	: "http://jetienne.com"
-	});	
+	//Input enter key to trigger the submit.
+	$("#qrcodeText").keyup(function(e){
+			 var e = e || event,
+			 keycode = e.which || e.keyCode;
+			 if (keycode==13) {
+			 $("#submit").trigger("click");
+			 }
+	});
+
+	//Added by Wolfgao, provie a input for users to create any text QRcode with this sample.
+	function createQRcode(){
+
+		//var qrcodeText = $('input[name="qrcodeText"]').val();
+		var qrcodeText = $('#qrcodeText').val();
+
+		jQuery('#qrcodeTable').empty();
+		jQuery('#qrcodeCanvas').empty();
+
+
+
+		if(qrcodeText.length == 0 || qrcodeText == '' || qrcodeText == null){
+			alert("输入框不能为空" + qrcodeText);
+			return ;
+		} else{
+			alert(qrcodeText);
+			jQuery('#qrcodeTable').qrcode({
+				render	: "table",
+				text	: qrcodeText
+			});
+			jQuery('#qrcodeCanvas').qrcode({
+				text	: qrcodeText
+			});
+		}
+	}
+
+
 </script>
 
 </body>
